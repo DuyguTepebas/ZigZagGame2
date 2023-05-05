@@ -35,10 +35,15 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Zemin"))
         {
+            YokEt(collision.gameObject);
             groundSpawner.ZeminOlustur();
         }
     }
 
+    void YokEt(GameObject zemin)
+    {
+        Destroy(zemin);
+    }
 
 
 }//class
