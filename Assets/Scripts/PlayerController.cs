@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        bestScore = PlayerPrefs.GetInt("BestScore");
         bestScoreText.text = "Best: " + PlayerPrefs.GetInt("BestScore").ToString();
     }
 
@@ -39,7 +40,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (transform.position.y < -2f)
+        if (transform.position.y < -1f)
         {
             isDead = true;
             if (bestScore < score)
@@ -53,6 +54,11 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (isDead)
+        {
+            return;
+        }
+
         Vector3 hareket = yon * speed * Time.deltaTime;
         speed += Time.deltaTime * hizlanmaZorlugu;
         transform.position += hareket;
