@@ -6,8 +6,11 @@ public class PlayerController : MonoBehaviour
 {
     Vector3 yon = Vector3.left;
     [SerializeField] float speed;
+   
     public GroundSpawner groundSpawner;
     public static bool isDead = false;
+    public float hizlanmaZorlugu;
+
    
 
     private void Update()
@@ -33,14 +36,16 @@ public class PlayerController : MonoBehaviour
         {
             isDead = true;
             Debug.Log("öldüm");
-            Destroy(this.gameObject, 3f);
+            Destroy(this.gameObject, 2f);
         }
     }
 
     private void FixedUpdate()
     {
         Vector3 hareket = yon * speed * Time.deltaTime;
+        speed += Time.deltaTime * hizlanmaZorlugu;
         transform.position += hareket;
+
     }
 
     private void OnCollisionExit(Collision collision)
