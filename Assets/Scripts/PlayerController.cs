@@ -7,14 +7,18 @@ public class PlayerController : MonoBehaviour
 {
     Vector3 yon = Vector3.left;
     [SerializeField] float speed;
-    [SerializeField] Text scoreText;
+    [SerializeField] Text scoreText, bestScoreText;
     public GroundSpawner groundSpawner;
     public static bool isDead = false;
     public float hizlanmaZorlugu;
     float score = 0f;
     float artisMiktari = 1f;
+    int bestScore = 0;
 
-   
+    private void Start()
+    {
+        bestScoreText.text = "Best: " + PlayerPrefs.GetInt("BestScore").ToString();
+    }
 
     private void Update()
     {
@@ -38,7 +42,11 @@ public class PlayerController : MonoBehaviour
         if (transform.position.y < -2f)
         {
             isDead = true;
-            Debug.Log("öldüm");
+            if (bestScore < score)
+            {
+                bestScore = (int) score;
+                PlayerPrefs.SetInt("BestScore", bestScore);
+            }
             Destroy(this.gameObject, 2f);
         }
     }
