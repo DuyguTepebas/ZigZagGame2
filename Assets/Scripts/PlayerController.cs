@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     [Header("Public Variable")]
     public GroundSpawner groundSpawner;
     public float hizlanmaZorlugu;
-    public static bool isDead = false;
+    public static bool isDead = true;
 
 
     Vector3 yon = Vector3.left;
@@ -23,6 +23,11 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        if (RestartGame.isRestart)
+        {
+            isDead = false;
+            playGamePanel.SetActive(false);
+        }
         bestScore = PlayerPrefs.GetInt("BestScore");
         bestScoreText.text = "Best: " + PlayerPrefs.GetInt("BestScore").ToString();
     }
@@ -54,6 +59,7 @@ public class PlayerController : MonoBehaviour
                 bestScore = (int) score;
                 PlayerPrefs.SetInt("BestScore", bestScore);
             }
+            restartPanel.SetActive(true);
             Destroy(this.gameObject, 2f);
         }
     }
@@ -91,5 +97,10 @@ public class PlayerController : MonoBehaviour
         Destroy(zemin);
     }
 
+    public void PlayGame()
+    {
+        isDead = false;
+        playGamePanel.SetActive(false);
+    }
 
 }//class
