@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Out Component")]
     [SerializeField] float speed;
-    [SerializeField] Text scoreText, bestScoreText;
+    [SerializeField] Text scoreText, bestScoreText,restartPanelScoreText ;
     [SerializeField] GameObject restartPanel, playGamePanel;
 
     [Header("Public Variable")]
@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
             playGamePanel.SetActive(false);
         }
         bestScore = PlayerPrefs.GetInt("BestScore");
-        bestScoreText.text = "Best: " + PlayerPrefs.GetInt("BestScore").ToString();
+        bestScoreText.text = "Best: " + PlayerPrefs.GetInt("BestScore");
     }
 
     private void Update()
@@ -96,6 +96,7 @@ public class PlayerController : MonoBehaviour
             score += 5;
             Destroy(other.gameObject);
             scoreText.text = "Score: " +((int)score);
+            restartPanelScoreText.text = "Score: " + score;
         }
     }
 
