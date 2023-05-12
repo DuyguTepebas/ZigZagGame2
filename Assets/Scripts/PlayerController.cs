@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,9 +18,9 @@ public class PlayerController : MonoBehaviour
 
 
     Vector3 yon = Vector3.left;
-    float score = 0f;
+    public static float score = 0f;
     float artisMiktari = 1f;
-    int bestScore = 0;
+    public static int bestScore = 0;
 
     private void Start()
     {
@@ -61,6 +62,7 @@ public class PlayerController : MonoBehaviour
             }
             restartPanel.SetActive(true);
             Destroy(this.gameObject, 2f);
+            score = 0;
         }
     }
 
@@ -72,12 +74,10 @@ public class PlayerController : MonoBehaviour
         }
 
         Vector3 hareket = yon * speed * Time.deltaTime;
-        speed += Time.deltaTime * hizlanmaZorlugu;
+        AccelerateTheGame();
         transform.position += hareket;
 
-        score += artisMiktari * speed * Time.deltaTime;
         
-        scoreText.text = "Score: " +((int)score).ToString();
     }
 
     private void OnCollisionExit(Collision collision)
@@ -86,6 +86,24 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(YokEt(collision.gameObject));
             groundSpawner.ZeminOlustur();
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Coin"))
+        {
+            score += 5;
+            Destroy(other.gameObject);
+            scoreText.text = "Score: " +((int)score);
+        }
+    }
+
+    void AccelerateTheGame()
+    {
+        if (score%30==0)
+        {
+            speed += hizlanmaZorlugu * Time.deltaTime;
         }
     }
 

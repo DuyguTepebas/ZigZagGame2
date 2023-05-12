@@ -5,6 +5,7 @@ using UnityEngine;
 public class GroundSpawner : MonoBehaviour
 {
     [SerializeField] GameObject sonZemin;
+    
 
     private void Start()
     {
@@ -18,6 +19,7 @@ public class GroundSpawner : MonoBehaviour
     public void ZeminOlustur()
     {
         Vector3 yon;
+        var random = Random.Range(0, 3);
         if (Random.Range(0,2) == 0)
         {
             yon = Vector3.left;
@@ -27,6 +29,7 @@ public class GroundSpawner : MonoBehaviour
             yon = Vector3.back;
         }
         sonZemin = Instantiate(sonZemin, sonZemin.transform.position + yon, sonZemin.transform.rotation);
+        sonZemin.transform.GetChild(0).gameObject.SetActive(random == 0);
     }
 
 
