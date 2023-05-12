@@ -101,9 +101,10 @@ public class PlayerController : MonoBehaviour
 
     void AccelerateTheGame()
     {
-        if (score%30==0)
+        if (score%2 == 0 && score%3 == 0 && score%5 == 0)
         {
             speed += hizlanmaZorlugu * Time.deltaTime;
+            Debug.Log(speed);
         }
     }
 
